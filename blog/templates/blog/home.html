@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h1>📝 Latest Blog Posts</h1>
+
+  <!-- 🔍 Search + Filter Box -->
+  <div class="search-filter-box">
+    <form method="GET" action="{% url 'home' %}">
+      <input type="text" name="q" placeholder="Search blog..." value="{{ request.GET.q }}" style="padding: 6px; width: 240px;">
+      <button type="submit">Search</button>
+
+      <select name="category" onchange="this.form.submit()" style="margin-left: 10px;">
+        <option value="">-- All Categories --</option>
+        {% for cat in categories %}
+          <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  </div>
+
+  <!-- ➕ Create Blog -->
+  <p style="margin-top: 15px;">
+    <a href="{% url 'create_post' %}" style="text-decoration: none; color: green; font-weight: bold;">
+      ➕ Create New Blog
+    </a>
+  </p>
+
+  <!-- 📄 Blog Posts -->
+  {% for post in posts %}
+    <div class="blog-card">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Thumbnail" style="max-width: 100%; max-height: 200px; border-radius: 8px; margin-bottom: 10px;">
+      {% endif %}
+      <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+      <p><strong>Category:</strong> {{ post.category.name }}</p>
+      <p>⏱ {{ post.read_time }}</p>
+      <p>{{ post.content|truncatewords:30 }}</p>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}

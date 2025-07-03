@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>Create New Blog Post 📝</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Publish Post</button>
+  </form>
+  <hr>
+  <a href="{% url 'home' %}">← Back to Home</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>📊 Admin Analytics Dashboard</h2>
+  <ul>
+    <li><strong>Total Posts:</strong> {{ total_posts }}</li>
+    <li><strong>Total Views:</strong> {{ total_views }}</li>
+    <li><strong>Total Likes:</strong> {{ total_likes }}</li>
+    <li><strong>Total Comments:</strong> {{ total_comments }}</li>
+  </ul>
+  <a href="{% url 'home' %}">← Back to Home</a>
+{% endblock %}
